@@ -1,0 +1,14 @@
+{
+    "appId": "com.lhenriqu42.petitupdater",
+    "files": [
+        "dist-electron",
+        "dist-react"
+    ],
+    "extraResources": [
+        "dist-electron/preload.cjs"
+    ],
+    "icon": "./Petit-logo.png",
+    "win": {
+        "target": "portable"
+    }
+}
