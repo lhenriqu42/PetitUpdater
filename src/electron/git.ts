@@ -1,7 +1,7 @@
 import { LogResult, simpleGit } from 'simple-git';
 
-export const checkUpdates = async (): Promise<LogResult> => {
-    const git = simpleGit('C:/Users/User/Desktop/Petit_API');
+export const checkUpdates = async (repo: string): Promise<LogResult> => {
+    const git = simpleGit(repo);
 
     try {
         await git.fetch();

@@ -7,9 +7,9 @@ import path from 'path';
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         center: true,
-        height: 300,
-        width: 400,
-        autoHideMenuBar: true,
+        height: 400,
+        width: 600,
+        // autoHideMenuBar: true,
         webPreferences: {
             preload: getPreloadPath(),
         }
@@ -19,5 +19,5 @@ app.on('ready', () => {
     } else {
         mainWindow.loadFile(path.join(app.getAppPath(), '/dist-react/index.html'));
     }
-    ipcMain.handle('verify', checkUpdates);
+    ipcMain.handle('verify', (_, repo) => checkUpdates(repo));
 })

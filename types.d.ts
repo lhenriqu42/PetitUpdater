@@ -12,10 +12,10 @@ interface LogResult<T = DefaultLogFields> {
     all: ReadonlyArray<T & ListLogLine>;
     total: number;
     latest: (T & ListLogLine) | null;
- }
+}
 
 interface Window {
     electron: {
-        checkUpdates: () => Promise<LogResult>;
+        checkUpdates: (repo: string) => Promise<LogResult>;
     }
 }
