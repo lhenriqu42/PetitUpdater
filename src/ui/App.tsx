@@ -1,15 +1,17 @@
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Result } from './Result';
-
-enum ERepo {
-  api = 'C:/Users/User/Documents/GitHub/Petit_API',
-  web = 'C:/Users/User/Desktop/Petit_API',
-}
 
 function App() {
   const [gitLog, setGitLog] = useState<LogResult[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [ERepo, setERepo] = useState<{ api: string, web: string }>({ api: '', web: '' });
+
+  useEffect(() => {
+    window.electron.getConfig().then((repos) => {
+      setERepo({ api: repos.APIPath, web: repos.WEBPath });
+    });
+  },[]);
 
   const checkUpdatesManually = async () => {
     try {
@@ -18,7 +20,7 @@ function App() {
       const FRONT = await window.electron.checkUpdates(ERepo.web);
       setGitLog([API, FRONT]);
     } catch (e) {
-      console.log(e);
+      alert(e);
     } finally {
       setLoading(false);
     }
@@ -45,8 +47,8 @@ function App() {
       }
       {gitLog && gitLog[0] && gitLog[1] && (
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'} gap={3}>
-          <Result gitLog={gitLog[0]} title='PetitAPI' repo={ERepo.api} type='api' callback={checkUpdatesManually}/>
-          <Result gitLog={gitLog[1]} title='PetitWEB' repo={ERepo.web} type='web' callback={checkUpdatesManually}/>
+          <Result gitLog={gitLog[0]} title='PetitAPI' repo={ERepo.api} type='api' callback={checkUpdatesManually} />
+          <Result gitLog={gitLog[1]} title='PetitWEB' repo={ERepo.web} type='web' callback={checkUpdatesManually} />
         </Box>
       )}
     </Box>

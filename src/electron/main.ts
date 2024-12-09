@@ -11,6 +11,7 @@ let mainWindow: BrowserWindow | null = null;
 function openConfigWindow() {
     if (configWindow) { configWindow.focus(); return; };
     configWindow = new BrowserWindow({
+        resizable: false,
         center: true,
         height: 400,
         width: 600,
@@ -39,6 +40,7 @@ function openConfigWindow() {
 
 function openMainWindow() {
     mainWindow = new BrowserWindow({
+        resizable: false,
         center: true,
         height: 400,
         width: 600,
@@ -77,14 +79,20 @@ const menuTemplate = [
     }
 ];
 
+const handleVerify = (repo: string) => {
+    if (configWindow) configWindow?.close();
+    return checkUpdates(repo);
+}
+
 app.on('ready', () => {
     openMainWindow();
-    ipcMain.handle('verify', (_, repo) => checkUpdates(repo));
-    ipcMain.handle('pull', (_, repo) => gitPull(repo));
-    ipcMain.handle('compile', (_, repo, type) => reCompile(repo, type));
     ipcMain.on('reload', () => mainWindow?.reload());
+    ipcMain.on('closeConfig', () => configWindow?.close());
     ipcMain.handle('getConfig', () => ConfigProvider.getConfig());
     ipcMain.handle('saveConfig', (_, config) => ConfigProvider.updateConfig(config));
+    ipcMain.handle('pull', (_, repo) => gitPull(repo));
+    ipcMain.handle('verify', (_, repo) => handleVerify(repo));
+    ipcMain.handle('compile', (_, repo, type) => reCompile(repo, type));
 })
 
 app.on('window-all-closed', () => {

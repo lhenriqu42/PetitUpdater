@@ -73,5 +73,6 @@ interface Window {
         reloadMainWindow: () => void;
         getConfig: () => Promise<Config>;
         saveConfig: (config: Config) => void;
+        closeConfigWindow: () => void;
     }
 }

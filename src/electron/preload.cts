@@ -7,4 +7,5 @@ electron.contextBridge.exposeInMainWorld("electron", {
     reloadMainWindow: () => electron.ipcRenderer.send("reload"),
     getConfig: () => electron.ipcRenderer.invoke("getConfig"),
     saveConfig: (config: any) => electron.ipcRenderer.invoke("saveConfig", config),
+    closeConfigWindow: () => electron.ipcRenderer.send("closeConfig"),
 } satisfies Window['electron']);
