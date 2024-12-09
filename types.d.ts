@@ -74,5 +74,6 @@ interface Window {
         getConfig: () => Promise<Config>;
         saveConfig: (config: Config) => void;
         closeConfigWindow: () => void;
+        selectDirectory: () => Promise<{ canceled: boolean, filePaths: string[] }>;
     }
 }

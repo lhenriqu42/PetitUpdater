@@ -2,14 +2,15 @@ import { Alert, Box, Button, CircularProgress, Typography } from "@mui/material"
 import { useState } from "react";
 
 interface IProps {
+	repo: string,
 	title: string,
 	gitLog: LogResult,
-	repo: string,
 	type: 'api' | 'web',
+	showCompileButton: boolean,
 	callback: () => void,
 }
 
-export const Result: React.FC<IProps> = ({ gitLog, title, repo, type, callback }) => {
+export const Result: React.FC<IProps> = ({ gitLog, title, repo, type, callback, showCompileButton }) => {
 
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -71,9 +72,12 @@ export const Result: React.FC<IProps> = ({ gitLog, title, repo, type, callback }
 								{loading ? <CircularProgress size={30} /> : 'Atualizar'}
 							</Button>
 						}
-						<Button variant="contained" color="error" onClick={compile} disabled={loading}>
-							{loading ? <CircularProgress size={30} /> : 'Compilar'}
-						</Button>
+						{
+							showCompileButton &&
+							<Button variant="contained" color="error" onClick={compile} disabled={loading}>
+								{loading ? <CircularProgress size={30} /> : 'Compilar'}
+							</Button>
+						}
 					</Box>
 				</Box>
 			</Box>

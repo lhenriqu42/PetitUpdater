@@ -3,7 +3,7 @@
   "description": "a System Updater for Petit",
   "author": "lhenriqu42",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -20,9 +20,10 @@
     "test": "electron-builder --win --x64"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.5",
-    "@emotion/styled": "^11.13.5",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.0",
+    "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.10",
     "electron-store": "^10.0.0",
     "react": "^18.3.1",

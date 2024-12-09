@@ -8,4 +8,5 @@ electron.contextBridge.exposeInMainWorld("electron", {
     getConfig: () => electron.ipcRenderer.invoke("getConfig"),
     saveConfig: (config: any) => electron.ipcRenderer.invoke("saveConfig", config),
     closeConfigWindow: () => electron.ipcRenderer.send("closeConfig"),
+    selectDirectory: () => electron.ipcRenderer.invoke("select-path"),
 } satisfies Window['electron']);

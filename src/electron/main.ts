@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 import { getPreloadPath } from './pathResolver.js';
 import { checkUpdates, gitPull, reCompile } from './git.js';
 import { isDev } from './util.js';
@@ -93,6 +93,7 @@ app.on('ready', () => {
     ipcMain.handle('pull', (_, repo) => gitPull(repo));
     ipcMain.handle('verify', (_, repo) => handleVerify(repo));
     ipcMain.handle('compile', (_, repo, type) => reCompile(repo, type));
+    ipcMain.handle('select-path', () => dialog.showOpenDialog({ properties: ['openDirectory'] }));
 })
 
 app.on('window-all-closed', () => {
